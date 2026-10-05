@@ -123,6 +123,12 @@ Smart-Neer adapts its UI to 4 distinct stakeholders via the **Role Switcher** in
 | **3. Sarpanch** *(Kailasrao More)* | Village Executive Summary, Analytics & Reports, NRW Audit, SMS Log | Focus on Non-Revenue Water (NRW) %, water saved (kL), money saved (₹), printable official PDF report. |
 | **4. District Jal-Nigam Engineer** *(Dattatray Shinde)* | Unrestricted Access across all 8 modules + Demo Lab | EPANET digital twin residuals, 100 Hz water hammer waveform, ML Isolation Forest tuning, CSV raw data export, failure injectors. |
 
+
+#### Default Demo Credentials (RBAC)
+- **Admin / District Engineer:** `admin` / `admin123`
+- **Sarpanch:** `sarpanch` / `sarpanch123`
+- **Pump Operator:** `operator` / `operator123`
+
 ---
 
 ## 🔌 Connecting to a Real Backend (FastAPI + MQTT + PostgreSQL)
