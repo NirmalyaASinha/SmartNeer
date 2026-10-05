@@ -40,6 +40,7 @@ export const Header: React.FC = () => {
     setActiveTab,
   } = useStore();
 
+  const { logout } = useAuthStore();
   const t = getTranslation(language);
   const kpis = getVillageKpis();
   const unacknowledgedAlerts = alerts.filter((a) => a.status === 'New');
@@ -191,7 +192,14 @@ export const Header: React.FC = () => {
             )}
           </button>
 
-          
+          {/* Logout Button */}
+          <button
+            onClick={logout}
+            title="Log Out"
+            className="p-1.5 rounded-lg text-slate-300 hover:text-red-400 hover:bg-white/10 transition"
+          >
+            <LogOut className="w-4 h-4" />
+          </button>
         </div>
       </div>
     </header>
