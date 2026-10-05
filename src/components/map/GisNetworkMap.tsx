@@ -200,6 +200,26 @@ export const GisNetworkMap: React.FC<{ fullScreen?: boolean }> = ({ fullScreen =
           />
           <span className="text-slate-600 dark:text-slate-300">Pressure Radii</span>
         </label>
+
+        <label className="flex items-center space-x-1 cursor-pointer select-none">
+          <input
+            type="checkbox"
+            checked={showValves}
+            onChange={(e) => setShowValves(e.target.checked)}
+            className="rounded text-indigo-500 focus:ring-0 w-3.5 h-3.5"
+          />
+          <span className="text-slate-600 dark:text-slate-300">Valves</span>
+        </label>
+
+        <label className="flex items-center space-x-1 cursor-pointer select-none bg-slate-800 px-2 py-0.5 rounded text-white ml-2">
+          <input
+            type="checkbox"
+            checked={mapType === 'satellite'}
+            onChange={(e) => setMapType(e.target.checked ? 'satellite' : 'street')}
+            className="rounded text-cyan-500 focus:ring-0 w-3.5 h-3.5"
+          />
+          <span className="text-[10px] font-bold tracking-wider uppercase">Satellite Mode</span>
+        </label>
       </div>
 
       {/* Map Legend */}

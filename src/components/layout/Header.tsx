@@ -91,9 +91,7 @@ export const Header: React.FC = () => {
             <div className="flex items-center space-x-2">
               <span className="font-extrabold text-xl tracking-tight text-white flex items-center gap-1.5">
                 {t.appTitle}
-                <span className="text-[10px] font-semibold tracking-wider uppercase px-1.5 py-0.5 rounded bg-brand-blue/40 text-cyan-200 border border-brand-blue/60">
-                  v2.6 SIH
-                </span>
+
               </span>
             </div>
             <p className="hidden sm:block text-xs text-slate-300 font-medium">
