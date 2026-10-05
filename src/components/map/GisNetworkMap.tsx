@@ -72,6 +72,14 @@ function createCustomMarkerIcon(node: SensorNode, isSelected: boolean) {
   });
 }
 
+
+const SAMPLE_VALVES = [
+  { id: 'V-01', lat: 19.0880, lng: 75.3235, type: 'Isolation Valve', status: 'OPEN' },
+  { id: 'V-02', lat: 19.0845, lng: 75.3200, type: 'Air Relief Valve', status: 'AUTO' },
+  { id: 'V-03', lat: 19.0800, lng: 75.3220, type: 'Washout Valve', status: 'CLOSED' },
+  { id: 'V-04', lat: 19.0765, lng: 75.3185, type: 'PRV (Pressure Reducing)', status: 'ACTIVE' },
+];
+
 // Simulated Household taps in the village
 const SAMPLE_HOUSEHOLDS = [
   { id: 'HH-01', lat: 19.0880, lng: 75.3210, name: 'Tukaram Kadam' },
@@ -101,6 +109,10 @@ export const GisNetworkMap: React.FC<{ fullScreen?: boolean }> = ({ fullScreen =
   const [showLeakZones, setShowLeakZones] = useState(true);
   const [showHouseholds, setShowHouseholds] = useState(false);
   const [showPressureHeat, setShowPressureHeat] = useState(false);
+
+  const [mapType, setMapType] = useState<'street' | 'satellite'>('street');
+  const [showValves, setShowValves] = useState(false);
+
 
   // Center of Maharashtra village
   const centerLat = 19.0835;
@@ -220,11 +232,20 @@ export const GisNetworkMap: React.FC<{ fullScreen?: boolean }> = ({ fullScreen =
         scrollWheelZoom={true}
         className="w-full h-full"
       >
-        <TileLayer
-          attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-          className="dark:filter dark:invert dark:hue-rotate-180 dark:contrast-75"
-        />
+        
+        {mapType === 'street' ? (
+          <TileLayer
+            attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+            className="dark:filter dark:invert dark:hue-rotate-180 dark:contrast-75"
+          />
+        ) : (
+          <TileLayer
+            attribution='&copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community'
+            url="https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}"
+          />
+        )}
+
 
         {/* 1. Pipe Segments Polylines */}
         {showPipes &&
@@ -390,6 +411,34 @@ export const GisNetworkMap: React.FC<{ fullScreen?: boolean }> = ({ fullScreen =
                 <div className="p-1 text-xs">
                   <p className="font-bold text-slate-900">{hh.name}</p>
                   <p className="text-slate-500">Tap Connection: {hh.id}</p>
+                </div>
+              </Popup>
+            </Circle>
+          ))}
+
+        
+        {/* 5.5 Valves */}
+        {showValves &&
+          SAMPLE_VALVES.map((v) => (
+            <Circle
+              key={v.id}
+              center={[v.lat, v.lng]}
+              radius={18}
+              pathOptions={{
+                color: '#4338ca',
+                fillColor: '#6366f1',
+                fillOpacity: 0.9,
+                weight: 2,
+              }}
+            >
+              <Tooltip permanent direction="bottom" offset={[0, 10]}>
+                <div className="font-bold text-[10px] text-indigo-700">{v.id}</div>
+              </Tooltip>
+              <Popup>
+                <div className="p-1 text-xs">
+                  <p className="font-bold text-slate-900">{v.type}</p>
+                  <p className="text-slate-600">Valve ID: {v.id}</p>
+                  <p className="text-slate-800 font-semibold mt-1">Status: {v.status}</p>
                 </div>
               </Popup>
             </Circle>
