@@ -18,7 +18,7 @@ export const useAuthStore = create<AuthState>((set, get) => ({
     params.append('username', username);
     params.append('password', password);
     
-    const res = await axios.post('http://localhost:8000/token', params);
+    const res = await axios.post('https://smartneer.onrender.com/token', params);
     const token = res.data.access_token;
     localStorage.setItem('token', token);
     set({ token });
@@ -34,7 +34,7 @@ export const useAuthStore = create<AuthState>((set, get) => ({
     const { token } = get();
     if (!token) return;
     try {
-      const res = await axios.get('http://localhost:8000/users/me', {
+      const res = await axios.get('https://smartneer.onrender.com/users/me', {
         headers: { Authorization: `Bearer ${token}` }
       });
       set({ user: res.data });

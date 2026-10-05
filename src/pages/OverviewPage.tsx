@@ -12,14 +12,14 @@ export default function OverviewPage() {
   // Fetch initial KPIs
   useEffect(() => {
     if (!token) return;
-    axios.get('http://localhost:8000/api/kpis', { headers: { Authorization: `Bearer ${token}` } })
+    axios.get('https://smartneer.onrender.com/api/kpis', { headers: { Authorization: `Bearer ${token}` } })
       .then(res => setKpis(res.data))
       .catch(console.error);
   }, [token]);
 
   // WebSocket Connection
   useEffect(() => {
-    const ws = new WebSocket('ws://localhost:8000/ws/telemetry');
+    const ws = new WebSocket('wss://smartneer.onrender.com/ws/telemetry');
     ws.onopen = () => setWsStatus('Connected');
     ws.onmessage = (event) => {
       const data = JSON.parse(event.data);

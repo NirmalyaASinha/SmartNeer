@@ -45,7 +45,7 @@ export default function PlanningPage() {
     setSimulationActive(true);
     try {
       // Simulate API call for the plan
-      const res = await axios.post('http://localhost:8000/api/ai/plan', 
+      const res = await axios.post('https://smartneer.onrender.com/api/ai/plan', 
         { query },
         { headers: { Authorization: `Bearer ${token}` } }
       );

@@ -396,7 +396,7 @@ export const useStore = create<AppStore>((set, get) => {
 
 // Subscribe Zustand store to real-time simulator events
 export function initializeSimulatorBridge() {
-  const ws = new WebSocket('ws://localhost:8000/ws/telemetry');
+  const ws = new WebSocket('wss://smartneer.onrender.com/ws/telemetry');
   ws.onmessage = (message) => {
     try {
       const event = JSON.parse(message.data);
